@@ -1,0 +1,41 @@
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context="com.pgmacdesign.materialdesignexamples.MainActivity">
+
+        <!-- This includes the app bar layout -->
+        <include
+            android:id="@+id/app_bar1"
+            layout="@layout/app_bar01"
+            />
+
+        <TextView
+            android:layout_below="@+id/app_bar1"
+            android:text="@string/hello_world"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+
+    <!--dp measurements match developer recommendations from website (280dp on width) -->
+    <fragment
+        android:id="@+id/fragment_nav_drawer"
+        android:layout_width="@dimen/nav_drawer_width"
+        android:layout_height="match_parent"
+        app:layout="@layout/fragment_navigation_drawer"
+        android:layout_gravity="start"
+        android:name="com.hotb.pgmacdesign.materialdesignexamples.NavigationDrawerFragment"
+        tools:layout="@layout/fragment_navigation_drawer"/>
+
+</android.support.v4.widget.DrawerLayout>

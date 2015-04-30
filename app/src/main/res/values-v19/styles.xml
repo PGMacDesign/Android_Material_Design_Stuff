@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--This is used for Kitkat. I have diabled it for now, but wrote it to follow the tutorial -->
+<resources>
+
+        <!-- Makes for a translucent window
+        <style name="AppTheme" parent="AppTheme.Base">
+            <item name="android:windowTranslucentStatus">false</item>
+        </style>
+        -->
+</resources>
