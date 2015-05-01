@@ -319,8 +319,7 @@ public class NavigationDrawerFragment extends Fragment {//implements { //MyAdapt
 				}
 				*/
 			});
-
-			//
+			
 		}
 
 		/**
