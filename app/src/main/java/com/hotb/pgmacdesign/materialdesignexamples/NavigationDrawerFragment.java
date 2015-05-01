@@ -9,9 +9,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +23,7 @@ import java.util.List;
 /**
  *
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment {//implements { //MyAdapterSlideNerd.ClickListener {  //From method 2 of onClick. Commenting out for now
 
 	public static final String PREF_FILE_NAME = "navPref";
 	public static final String KEY_USER_LEARNED_DRAWER = "user_learned_drawer";
@@ -65,9 +68,25 @@ public class NavigationDrawerFragment extends Fragment {
 
 		//Arraylist of info to pass
 		adapter = new MyAdapterSlideNerd(getActivity(), getData());
+		//This fragment is the object which implements the click listener
+		//adapter.setClickListener(this); //From method 2 of onClick. Commenting out for now
+
 		recyclerView.setAdapter(adapter);
 		//Need to set how the view looks else it will not run
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+		//This is being set so that the separate class on the bottom (RecyclerTouchListener) can handle all click events
+		recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+			//Implementing from the interface. These actually handle the resulting on click events
+			public void onClick(View view, int position) {
+				Toast.makeText(getActivity(), "Clicked at position "+position, Toast.LENGTH_SHORT).show();
+			}
+
+			//Implementing from the interface
+			public void onLongClick(View view, int position) {
+				Toast.makeText(getActivity(), "Long Clicked at position "+position, Toast.LENGTH_SHORT).show();
+			}
+		}));
 
 		return view;
 	}
@@ -222,5 +241,124 @@ public class NavigationDrawerFragment extends Fragment {
 	public static String readFromPreferences(Context context, String preferenceName, String defaultValue){
 		SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
 		return sharedPreferences.getString(preferenceName, defaultValue);
+	}
+
+	//From the MyAdapterSlideNerd adapter class interface
+	//public void itemClicked(View view, int position) { //From method 2 of onClick. Commenting out for now
+		//startActivity(new Intent(getActivity(), SubActivity.class)); //From method 2 of onClick. Commenting out for now
+	//}
+
+	class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
+
+		//Click Listener
+		private ClickListener clickListener;
+
+		//This is used to detect whether it was a short click, long click, click and move, etc. Needs a motion event object
+		private GestureDetector gestureDetector;
+
+		//Constructor
+		public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener){
+
+			//Initialize the click Listener
+			this.clickListener = clickListener;
+
+			//Gesture Detector
+			gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
+				//Long click
+				public void onLongPress(MotionEvent e) {
+					//Pass in the x and y coords of the motion event and it finds what child is at those coords
+					View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+
+					//Check if the click listener is null!
+					if(child != null && clickListener != null){
+						clickListener.onLongClick(child, recyclerView.getChildLayoutPosition(child)); //Check into getChildAdapterPosition as well
+					}
+					super.onLongPress(e);
+				}
+
+				//Single tap
+				public boolean onSingleTapUp(MotionEvent e) {
+					return true;
+				}
+
+				//IGNORE THE REST, EXPERIMENTING FOR LATER
+				/*
+				@Override
+				public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+					return super.onScroll(e1, e2, distanceX, distanceY);
+				}
+
+				@Override
+				public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+					return super.onFling(e1, e2, velocityX, velocityY);
+				}
+
+				@Override
+				public void onShowPress(MotionEvent e) {
+					super.onShowPress(e);
+				}
+
+				@Override
+				public boolean onDown(MotionEvent e) {
+					return super.onDown(e);
+				}
+
+				@Override
+				public boolean onDoubleTap(MotionEvent e) {
+					return super.onDoubleTap(e);
+				}
+
+				@Override
+				public boolean onDoubleTapEvent(MotionEvent e) {
+					return super.onDoubleTapEvent(e);
+				}
+
+				@Override
+				public boolean onSingleTapConfirmed(MotionEvent e) {
+					return super.onSingleTapConfirmed(e);
+				}
+				*/
+			});
+
+			//
+		}
+
+		/**
+		 * This is used to forward the touch events to the gesture detector.
+		 * @param rv
+		 * @param e
+		 * @return
+		 */
+		public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+			//This intercepts the event and passes it to the gesture detector
+			View child = rv.findChildViewUnder(e.getX(), e.getY());
+
+			/*
+			If the view is not null, AND the click listener is not null AND the
+			gesture handled an event, then proceed.
+			 */
+			if(child != null && clickListener != null && gestureDetector.onTouchEvent(e)){
+				//Kick the event to the user
+				clickListener.onClick(child, rv.getChildLayoutPosition(child)); //Check into getChildAdapterPosition as well
+			}
+
+			//gestureDetector.onTouchEvent(e);
+			return false;
+		}
+
+		/**
+		 *
+		 * @param rv
+		 * @param e
+		 */
+		public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+		}
+	}
+
+	//Custom interface for 2 of the click methods
+	public static interface ClickListener{
+		public void onClick(View view, int position);
+		public void onLongClick(View view, int position);
 	}
 }

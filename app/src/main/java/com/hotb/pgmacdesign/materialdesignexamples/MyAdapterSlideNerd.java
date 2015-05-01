@@ -2,7 +2,6 @@ package com.hotb.pgmacdesign.materialdesignexamples;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +19,18 @@ public class MyAdapterSlideNerd extends RecyclerView.Adapter<MyAdapterSlideNerd.
 
 	private final LayoutInflater inflater;
 
+	//private ClickListener clickListener; //From method 2 of onClick. Commenting out for now
+
 	//List used to hold the data that will be put into the custom_row fields. Also, initializes it
 	List<RecyclerViewData> data = Collections.emptyList();
+
+	private Context context;
 
 	//Constructor
 	public MyAdapterSlideNerd(Context context, List<RecyclerViewData> aData){
 		inflater = LayoutInflater.from(context);
 		this.data = aData;
+		this.context = context;
 	}
 
 	/**
@@ -80,6 +84,13 @@ public class MyAdapterSlideNerd extends RecyclerView.Adapter<MyAdapterSlideNerd.
 	}
 
 	/**
+	 * This sets up the interface variable
+	 */
+	//public void setClickListener(ClickListener clickListener){ //From method 2 of onClick. Commenting out for now
+		//this.clickListener = clickListener; //From method 2 of onClick. Commenting out for now
+	//}
+
+	/**
 	 * Size of the items
 	 * @return the int size of the List of RecyclerViewData objects
 	 */
@@ -106,20 +117,31 @@ public class MyAdapterSlideNerd extends RecyclerView.Adapter<MyAdapterSlideNerd.
 			title = (TextView) itemView.findViewById(R.id.custom_view_text);
 			icon = (ImageView) itemView.findViewById(R.id.custom_view_image);
 
-			icon.setOnClickListener(this);
+			icon.setOnClickListener(this); //This will set it do onClick() method
 
 		}
 
 		@Override
 		public void onClick(View v) {
 			//Toast.makeText(v.getContext(), "Item Clicked at " + getLayoutPosition(), Toast.LENGTH_SHORT).show();
-			delete(getLayoutPosition());
-			Log.d("Item " + getLayoutPosition(), " Was Deleted");
+
+			//Call a method to delete the item at the position
+			//delete(getLayoutPosition());
+			//Log.d("Item " + getLayoutPosition(), " Was Deleted");
 			/*
 			Apparently getPosition() is now deprecated, you should use one of these 2 instead:
 			getLayoutPosition()
 			getAdapterPosition()
 			 */
+
+			//if(clickListener != null){ //From method 2 of onClick. Commenting out for now
+				//clickListener.itemClicked(v, getLayoutPosition()); //From method 2 of onClick. Commenting out for now
+			//}
 		}
 	}
+
+	//Interface
+	//public interface ClickListener{ //From method 2 of onClick. Commenting out for now
+		//public void itemClicked(View view, int position); //From method 2 of onClick. Commenting out for now
+	//}
 }
