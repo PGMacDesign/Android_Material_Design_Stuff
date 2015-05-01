@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -80,11 +81,17 @@ public class NavigationDrawerFragment extends Fragment {//implements { //MyAdapt
 			//Implementing from the interface. These actually handle the resulting on click events
 			public void onClick(View view, int position) {
 				Toast.makeText(getActivity(), "Clicked at position "+position, Toast.LENGTH_SHORT).show();
+
+				//TESTING
+
 			}
 
 			//Implementing from the interface
 			public void onLongClick(View view, int position) {
 				Toast.makeText(getActivity(), "Long Clicked at position "+position, Toast.LENGTH_SHORT).show();
+
+				//TESTING
+
 			}
 		}));
 
@@ -147,16 +154,20 @@ public class NavigationDrawerFragment extends Fragment {//implements { //MyAdapt
 	}
 
 	public void setup(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
+		Log.d("Line ", "157");
 		//Initialize the containerView
 		containerView = getView().findViewById(fragmentId);
-
+		Log.d("Line ", "160");
 		this.mDrawerLayout = drawerLayout;
+		Log.d("Line ", "162");
 		this.mDrawerToggle = new ActionBarDrawerToggle(getActivity(),
 				drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
 			//Called when the drawer starts sliding
 			public void onDrawerSlide(View drawerView, float slideOffset) {
+				Log.d("Line ", "168");
 				super.onDrawerSlide(drawerView, slideOffset);
+				Log.d("Line ", "170");
 				/*
 				The slideOffset is how much (in decimal format) the drawer is out. It starts at 0.0
 				which means it is in. As it slides out, it increases until it is all the way out and
@@ -166,6 +177,7 @@ public class NavigationDrawerFragment extends Fragment {//implements { //MyAdapt
 				if(slideOffset <.68) {
 					//This sets it so that the screen darkens as it slides out
 					toolbar.setAlpha(1 - slideOffset);
+					Log.d("Line ", "180");
 				}
 			}
 
@@ -319,7 +331,7 @@ public class NavigationDrawerFragment extends Fragment {//implements { //MyAdapt
 				}
 				*/
 			});
-			
+
 		}
 
 		/**
