@@ -38,7 +38,7 @@
 
         <!--dp measurements match developer recommendations from website (280dp on width) -->
         <fragment
-            android:id="@+id/fragment_nav_drawer1"
+            android:id="@+id/fragment_nav_drawer55"
             android:layout_width="@dimen/nav_drawer_width"
             android:layout_height="match_parent"
             app:layout="@layout/fragment_navigation_drawer"

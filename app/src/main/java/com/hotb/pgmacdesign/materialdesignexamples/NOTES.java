@@ -11,7 +11,7 @@ public class NOTES {
 	-Generally, nav_drawers on the left should contain content for navigating around the application
 	while nav_drawers on the right should contain actions to take on the current position
 	-For color matching, check out www.materialpalette.com //Useful
-	-
+	-Updated 2015-05-04
 
 	 */
 }

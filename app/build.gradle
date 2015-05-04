@@ -21,10 +21,12 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    compile 'com.android.support:recyclerview-v7:22.1.1'
-    compile 'org.lucasr.dspec:dspec:0.1.1'
-    compile files('src/main/libs/easyandroidanimationslibrary-v0.5.jar')
-    compile files('src/main/libs/gson-2.3.1.jar')
-    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    compile 'com.android.support:appcompat-v7:22.1.1' //Allows for backwards compatability with appcompat on older devices
+    compile 'com.android.support:recyclerview-v7:22.1.1' //Allows for backwards compatability with recyclerViews on older devices
+    compile 'org.lucasr.dspec:dspec:0.1.1' //Check specs and render pink lines to see how things align in your app
+    compile files('src/main/libs/easyandroidanimationslibrary-v0.5.jar') //Custom animations
+    compile files('src/main/libs/gson-2.3.1.jar') //GSON, for managing JSON de/serialization
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1' //Ripple effect (lolipop) on pre API 21 devices
+    compile 'it.neokree:MaterialTabs:0.11' //Tabs library
+    compile 'com.mcxiaoke.volley:library:1.0.+' //Volley
 }

@@ -7,7 +7,7 @@
                 >
 
     <include
-        layout="@layout/app_bar01"
+        layout="@layout/app_bar01_tabs"
         android:id="@+id/app_bar2"
         />
 

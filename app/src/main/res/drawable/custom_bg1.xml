@@ -9,7 +9,12 @@
 
         <item android:state_pressed="false">
             <shape>
-                <solid android:color="@android:color/white"></solid>
+                <solid android:color="@color/silver"></solid>
             </shape>
         </item>
 </selector>
+
+    <!--
+        <solid android:color="@android:color/white"></solid>
+
+                -->

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@id/app_bar1"
+        layout="@layout/app_bar01_tabs"
+        />
+
+    <!--
+    This one is used to put text into the tabs. Using the other one for images/ pictures for now
+    <it.neokree.materialtabs.MaterialTabHost
+        android:id="@+id/materialTabHost"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:textColor="#FFFFFF"
+        app:primaryColor="@color/primary_color"
+        app:accentColor="@color/primary_color_accent"
+        />
+    -->
+
+    <it.neokree.materialtabs.MaterialTabHost
+        android:id="@+id/materialTabHost"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:iconColor="@color/white"
+        app:primaryColor="@color/primary_color"
+        app:accentColor="@color/primary_color_accent"
+        app:hasIcons="true"
+        />
+    <!-- NOTE! The iconColor attribute WILL CHANGE the color of the drawable -->
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/materialTabHost"
+        android:layout_weight="1"
+        />
+
+</LinearLayout>
