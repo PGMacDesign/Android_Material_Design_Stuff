@@ -21,22 +21,25 @@ public class VolleySingleton {
 	private VolleySingleton(){
 		//This requires a custom application class to run. Cannot just use 'getContext()'
 		requestQueue = Volley.newRequestQueue(MyApplication.getAppContext());
+
+		//Create an image loader and initialize it
 		imageLoader = new ImageLoader(requestQueue, new ImageLoader.ImageCache() {
 
-			private LruCache<String, Bitmap> cache = new LruCache<>();
+			//This allocates max memory available to the cache. need to convert down to bits so /1024 /8.
+			private LruCache<String, Bitmap> cache = new LruCache<>((int)(Runtime.getRuntime().maxMemory()/1024)/8);
 			/**
 			 * Caching mechanism. Uses the LruCache.
-			 * @param url
-			 * @return
+			 * @param url String url of the bitmap
+			 * @return returns a bitmap
 			 */
 			@Override
 			public Bitmap getBitmap(String url) {
-				return null;
+				return cache.get(url);
 			}
 
 			@Override
 			public void putBitmap(String url, Bitmap bitmap) {
-
+				cache.put(url, bitmap);
 			}
 		});
 	}
@@ -58,5 +61,12 @@ public class VolleySingleton {
 	 */
 	public RequestQueue getRequestQueue(){
 		return requestQueue;
+	}
+
+	/**
+	 * @return Returns an instance of an ImageLoader
+	 */
+	public ImageLoader getImageLoader(){
+		return imageLoader;
 	}
 }

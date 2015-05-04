@@ -6,6 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="next">Next</string>
 
+    <string name="rotten_tomatoes_api_key">v66kns6qwttrmvea9qxsv83n</string>
+
     <!-- Nav Drawer -->
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
