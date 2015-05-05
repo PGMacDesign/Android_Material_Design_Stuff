@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.hotb.pgmacdesign.materialdesignexamples.R;
+import com.hotb.pgmacdesign.materialdesignexamples.adapters.AdapterBoxOffice;
 import com.hotb.pgmacdesign.materialdesignexamples.misc.L;
 import com.hotb.pgmacdesign.materialdesignexamples.misc.UrlEndpoints;
 import com.hotb.pgmacdesign.materialdesignexamples.pojo.Movie;
@@ -32,15 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_AUDIENCE_SCORE;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_ID;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_MOVIES;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_RATINGS;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_RELEASE_DATES;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_SYNOPSIS;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_THEATER;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_THUMBNAIL;
-import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.KEY_TITLE;
+import static com.hotb.pgmacdesign.materialdesignexamples.misc.Keys.EndpointBoxOffice.*;
 
 //This is being used so I can call the static strings in the interface without referencing the class/package name
 
@@ -52,12 +45,15 @@ public class FragmentBoxOffice extends Fragment {
 	private String mParam1;
 	private String mParam2;
 
+	//Holds movies
+	ArrayList<Movie> listMovies2 = new ArrayList<>();
+
 	private VolleySingleton volleySingleton;
 	private ImageLoader imageLoader;
 	private RequestQueue requestQueue;
 
-	//Holds the movies
-	private ArrayList<Movie> listMovies = new ArrayList<>();
+	//Adapter
+	private AdapterBoxOffice adapterBoxOffice;
 
 	//Date formatter / converter
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //NOTE! Small m is a minute, not a month
@@ -95,25 +91,45 @@ public class FragmentBoxOffice extends Fragment {
 		requestQueue = volleySingleton.getRequestQueue();
 		imageLoader = volleySingleton.getImageLoader();
 
-		sendJSONRequest();
 	}
 
-	private void sendJSONRequest() {
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	                         Bundle savedInstanceState) {
+		//Create the view to reference
+		View view = inflater.inflate(R.layout.fragment_fragment_box_office, container, false);
+		//Initialize the recycler view
+		listMovieHits = (RecyclerView) view.findViewById(R.id.listMovieHits);
+		//Set the layout manager
+		listMovieHits.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+		adapterBoxOffice = new AdapterBoxOffice(getActivity());
+		listMovieHits.setAdapter(adapterBoxOffice);
+
+		//Set the data and send the JSON request
+		sendJSONRequest(30);
+
+		// Inflate the layout for this fragment
+		return view;
+	}
+
+	private void sendJSONRequest(int results) {
 		JsonObjectRequest request = new JsonObjectRequest(
 				Request.Method.GET,
-				getRequestUrl(10),
+				getRequestUrl(results), //Number of search results you want
 				(String) null, //TEMP FIX!
 				new Response.Listener<JSONObject>() {
 					@Override
 					public void onResponse(JSONObject response) {
 						L.m(response.toString());
-						parseJSONResponse(response);
+						listMovies2 = parseJSONResponse(response);
+						adapterBoxOffice.setMovieList(listMovies2);
 					}
 				},
 				new Response.ErrorListener(){
 					@Override
 					public void onErrorResponse(VolleyError error) {
-
+						L.m("Error in response");
 					}
 				});
 		requestQueue.add(request);
@@ -123,14 +139,24 @@ public class FragmentBoxOffice extends Fragment {
 	 * Parse the JSON response
 	 * @param response response received from the server in JSON format
 	 */
-	private void parseJSONResponse(JSONObject response) {
+	private ArrayList<Movie> parseJSONResponse(JSONObject response) {
+		//Holds the movies
+		ArrayList<Movie> listMovies = new ArrayList<>();
+
 		if(response == null || response.length() == 0){
-			return;
+			return listMovies;
 		}
+
+		long id = -1;
+		String title = "NA";
+		String releaseDate = "NA";
+		int audience_score = -1;
+		String synopsis = "NA";
+		String urlThumbnail = "NA";
+
 
 		//Parse the response out
 		try {
-			StringBuilder data = new StringBuilder();
 
 			//Put the response in to a JSON Array
 			JSONArray arrayMovies = response.getJSONArray(KEY_MOVIES);
@@ -141,73 +167,72 @@ public class FragmentBoxOffice extends Fragment {
 				JSONObject currentMovie = arrayMovies.getJSONObject(i);
 
 				//Returns a String, but we are forcing a Long instead
-				long  id = currentMovie.getLong(KEY_ID);
-				String title = currentMovie.getString(KEY_TITLE);
+				if(currentMovie.has(KEY_ID) && !currentMovie.isNull(KEY_ID)){
+					id = currentMovie.getLong(KEY_ID);
+				}
+
+				if(currentMovie.has(KEY_TITLE) && !currentMovie.isNull(KEY_TITLE)){
+					title = currentMovie.getString(KEY_TITLE);
+				}
+
 
 				//This grouping of code is to get a nested object (theater) under release_dates
 				JSONObject objectReleaseDate = currentMovie.getJSONObject(KEY_RELEASE_DATES);
-				String releaseDate=null;
-				if(objectReleaseDate.has(KEY_THEATER)){
+				if(objectReleaseDate.has(KEY_THEATER) && !objectReleaseDate.isNull(KEY_THEATER)){
 					releaseDate = objectReleaseDate.getString(KEY_THEATER);
-				} else {
-					releaseDate = "N/A";
 				}
 
 				//This grouping of code is to get nested objects under ratings
 				JSONObject objectRatings = currentMovie.getJSONObject(KEY_RATINGS);
-				int audience_score=-1;
-				if(objectRatings.has(KEY_AUDIENCE_SCORE)){
+				if(objectRatings.has(KEY_AUDIENCE_SCORE) && !objectRatings.isNull(KEY_AUDIENCE_SCORE)){
 					audience_score = objectRatings.getInt(KEY_AUDIENCE_SCORE);
 				}
 
 				//This grouping of code is to get a nested object (thumbnail) under posters
-				JSONObject objectPosters = currentMovie.getJSONObject(KEY_RELEASE_DATES);
-				String urlThumbnail=null;
-				if(objectPosters.has(KEY_THUMBNAIL)){
+				JSONObject objectPosters = currentMovie.getJSONObject(KEY_POSTERS);
+				if(objectPosters.has(KEY_THUMBNAIL) && !objectPosters.isNull(KEY_THUMBNAIL)){
 					urlThumbnail = objectPosters.getString(KEY_THUMBNAIL);
 				}
 
-				String synopsis = currentMovie.getString(KEY_SYNOPSIS);
+				if(currentMovie.has(KEY_SYNOPSIS) && !currentMovie.isNull(KEY_SYNOPSIS)){
+					synopsis = currentMovie.getString(KEY_SYNOPSIS);
+				}
+
+
 
 				//Set the movie object
 				Movie movie = new Movie();
 				movie.setId(id);
 				movie.setTitle(title);
-				Date dateObject = dateFormat.parse(releaseDate);
+				movie.setUrlThumbnail(urlThumbnail);
+				movie.setAudienceScore(audience_score);
+				movie.setSynopsis(synopsis);
+				Date dateObject = null;
+				try { //Try and format the date. If it fails, at least it keeps going
+					dateObject = dateFormat.parse(releaseDate);
+				} catch (ParseException e){
+					e.printStackTrace();
+				}
 				movie.setReleaseDateTheater(dateObject);
 
-				//Add it to the list
-				listMovies.add(movie);
+				//Add it to the list if the values are not missing / null
+				if(id != -1 && !title.equalsIgnoreCase("NA")){
+					listMovies.add(movie);
+				}
 
-				//Append the data
-				data.append("\n" + id+ ", " + title + ", " + releaseDate + ", " + audience_score + ", " + synopsis);
 
 			}
 
-			L.m(data.toString());
 			L.m("\n GAP \n ");
 			L.m(listMovies.toString());
 
 		} catch (JSONException e){
 			e.printStackTrace();
-		} catch (ParseException e){ //Called if the Date parsing fails
-			e.printStackTrace();
 		}
+
+		return listMovies;
 	}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	                            Bundle savedInstanceState) {
-		//Create the view to reference
-		View view = inflater.inflate(R.layout.fragment_fragment_box_office, container, false);
-		//Initialize the recycler view
-		listMovieHits = (RecyclerView) view.findViewById(R.id.listMovieHits);
-		//Set the layout manager
-		listMovieHits.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-		// Inflate the layout for this fragment
-		return view;
-	}
 
 	/**
 	 * Appends the info to complete the URL String.

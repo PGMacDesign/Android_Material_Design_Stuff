@@ -13,7 +13,7 @@ import com.android.volley.toolbox.Volley;
  */
 public class VolleySingleton {
 
-	private ImageLoader imageLoader;
+	private static ImageLoader imageLoader;
 	private static VolleySingleton sInstance = null;
 	private RequestQueue requestQueue;
 
@@ -66,7 +66,7 @@ public class VolleySingleton {
 	/**
 	 * @return Returns an instance of an ImageLoader
 	 */
-	public ImageLoader getImageLoader(){
+	public static ImageLoader getImageLoader(){
 		return imageLoader;
 	}
 }

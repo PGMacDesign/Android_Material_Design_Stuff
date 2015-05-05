@@ -86,4 +86,44 @@ public class Movie {
 	public void setUrlSimilar(String urlSimilar) {
 		this.urlSimilar = urlSimilar;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public Date getReleaseDateTheater() {
+		return releaseDateTheater;
+	}
+
+	public int getAudienceScore() {
+		return audienceScore;
+	}
+
+	public String getSynopsis() {
+		return synopsis;
+	}
+
+	public String getUrlThumbnail() {
+		return urlThumbnail;
+	}
+
+	public String getUrlSelf() {
+		return urlSelf;
+	}
+
+	public String getUrlCast() {
+		return urlCast;
+	}
+
+	public String getUrlReviews() {
+		return urlReviews;
+	}
+
+	public String getUrlSimilar() {
+		return urlSimilar;
+	}
 }
