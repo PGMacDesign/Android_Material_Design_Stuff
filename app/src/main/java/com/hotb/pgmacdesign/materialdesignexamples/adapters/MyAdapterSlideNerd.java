@@ -1,4 +1,4 @@
-package com.hotb.pgmacdesign.materialdesignexamples;
+package com.hotb.pgmacdesign.materialdesignexamples.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hotb.pgmacdesign.materialdesignexamples.R;
+import com.hotb.pgmacdesign.materialdesignexamples.pojo.RecyclerViewData;
 
 import java.util.Collections;
 import java.util.List;
@@ -77,8 +80,8 @@ public class MyAdapterSlideNerd extends RecyclerView.Adapter<MyAdapterSlideNerd.
 		RecyclerViewData current = data.get(position);
 
 		//Set the fields
-		holder.title.setText(current.title);
-		holder.icon.setImageResource(current.iconID);
+		holder.title.setText(current.getTitle());
+		holder.icon.setImageResource(current.getIconID());
 
 
 	}

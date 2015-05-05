@@ -18,6 +18,7 @@ public class MyApplication extends Application {
 	 */
 	private static MyApplication sInstance;
 
+	public static final String API_KEY = "v66kns6qwttrmvea9qxsv83n";
 	public void onCreate(){
 		super.onCreate();
 		sInstance = this;

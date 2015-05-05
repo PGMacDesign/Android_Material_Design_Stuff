@@ -1,4 +1,4 @@
-package com.hotb.pgmacdesign.materialdesignexamples;
+package com.hotb.pgmacdesign.materialdesignexamples.misc;
 
 /**
  * Created by pmacdowell on 4/29/2015.

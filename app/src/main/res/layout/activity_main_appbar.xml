@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             app:layout="@layout/fragment_navigation_drawer"
             android:layout_gravity="start"
-            android:name="com.hotb.pgmacdesign.materialdesignexamples.NavigationDrawerFragment"
+            android:name="com.hotb.pgmacdesign.materialdesignexamples.fragments.NavigationDrawerFragment"
             tools:layout="@layout/fragment_navigation_drawer"
             />
 

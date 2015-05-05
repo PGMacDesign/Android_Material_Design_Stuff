@@ -1,4 +1,4 @@
-package com.hotb.pgmacdesign.materialdesignexamples;
+package com.hotb.pgmacdesign.materialdesignexamples.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,6 +16,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.hotb.pgmacdesign.materialdesignexamples.R;
+import com.hotb.pgmacdesign.materialdesignexamples.pojo.RecyclerViewData;
+import com.hotb.pgmacdesign.materialdesignexamples.adapters.MyAdapterSlideNerd;
 
 import java.util.ArrayList;
 import java.util.List;

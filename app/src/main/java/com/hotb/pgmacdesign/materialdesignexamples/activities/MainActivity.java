@@ -1,7 +1,8 @@
-package com.hotb.pgmacdesign.materialdesignexamples;
+package com.hotb.pgmacdesign.materialdesignexamples.activities;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,12 +17,17 @@ import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.hotb.pgmacdesign.materialdesignexamples.R;
+import com.hotb.pgmacdesign.materialdesignexamples.fragments.FragmentBoxOffice;
+import com.hotb.pgmacdesign.materialdesignexamples.fragments.FragmentSearch;
+import com.hotb.pgmacdesign.materialdesignexamples.fragments.FragmentUpcoming;
+import com.hotb.pgmacdesign.materialdesignexamples.fragments.NavigationDrawerFragment;
 import com.hotb.pgmacdesign.materialdesignexamples.tabs.SlidingTabLayout;
 
 /**
  * Instead of ActionBarActivity, need to use AppCompatActivity instead
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentUpcoming.OnFragmentInteractionListener {
 
 	private Toolbar toolbar;
 	NavigationDrawerFragment drawerFragment;
@@ -29,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
 	//These 2 are for the tabs, remove them for doing nav drawer only
 	private ViewPager mPager;
 	private SlidingTabLayout mTabs;
+
+	//Used for distinguishing the tabs
+	public static final int MOVIES_SEARCH_RESULTS=0;
+	public static final int MOVIES_HITS=1;
+	public static final int MOVIES_UPCOMING=2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +110,18 @@ public class MainActivity extends AppCompatActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	//This class is for the tabs, remove them for doing nav drawer only
-	class MyPagerAdapter extends FragmentPagerAdapter {
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+
+	}
+
+	/*
+	This class is for the tabs, remove them for doing nav drawer only
+	NOTE! The FragmentPagerAdapter is used to save the state of each
+	fragment when it is switched to a different one. This essentially
+	calls savedInstanceState when it goes back to the previous fragment.
+	 */
+	private class MyPagerAdapter extends FragmentPagerAdapter {
 
 		//Text for the tabs
 		String[] tabText;
@@ -117,8 +138,25 @@ public class MainActivity extends AppCompatActivity {
 
 		//creates a new instance and returns a Fragment
 		public Fragment getItem(int position) {
-			MyFragment myFragment = MyFragment.getInstance(position);
-			return myFragment;
+			//MyFragment myFragment = MyFragment.getInstance(position);
+
+			Fragment fragment = null;
+			//Inflates the right fragment depending on which position is up
+			switch(position){
+				case MOVIES_SEARCH_RESULTS:
+					fragment = FragmentSearch.newInstance("", ""); //Empty params for now
+					break;
+
+				case MOVIES_HITS:
+					fragment = FragmentBoxOffice.newInstance("", ""); //Empty params for now
+					break;
+
+				case MOVIES_UPCOMING:
+					fragment = FragmentUpcoming.newInstance("", ""); //Empty params for now
+					break;
+			}
+
+			return fragment;
 		}
 
 		//Gets the title at that position in the array

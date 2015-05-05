@@ -1,4 +1,4 @@
-package com.hotb.pgmacdesign.materialdesignexamples;
+package com.hotb.pgmacdesign.materialdesignexamples.pojo;
 
 /**
  * Holds the data for the recycler view

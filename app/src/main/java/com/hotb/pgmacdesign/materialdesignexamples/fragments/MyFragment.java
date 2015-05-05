@@ -1,4 +1,4 @@
-package com.hotb.pgmacdesign.materialdesignexamples;
+package com.hotb.pgmacdesign.materialdesignexamples.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.hotb.pgmacdesign.materialdesignexamples.R;
 import com.hotb.pgmacdesign.materialdesignexamples.volleystuff.VolleySingleton;
 
 /**

@@ -1,4 +1,4 @@
-package com.hotb.pgmacdesign.materialdesignexamples;
+package com.hotb.pgmacdesign.materialdesignexamples.activities;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+
+import com.hotb.pgmacdesign.materialdesignexamples.fragments.MyFragment;
+import com.hotb.pgmacdesign.materialdesignexamples.R;
 
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;

@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/primary_material_light"
-             tools:context="com.hotb.pgmacdesign.materialdesignexamples.NavigationDrawerFragment">
+             tools:context="com.hotb.pgmacdesign.materialdesignexamples.fragments.NavigationDrawerFragment">
 
     <!--May need to add another linear layout here in between-->
     <android.support.v7.widget.RecyclerView
