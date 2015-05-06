@@ -1,6 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.hotb.pgmacdesign.materialdesignexamples">
 
+    <!--SDK Requirements -->
+    <uses-sdk
+        android:minSdkVersion="15"
+        />
+
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -33,13 +38,20 @@
         </activity>
 
         <activity
-            android:name=".activities.ActivityUsingTabLibrary"
+            android:name=".activities.MainActivityUsingTabLibrary"
             android:label="Sub Activity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
         </activity>
 
+        <activity
+            android:name=".activities.MainActivityNOTUsingTabLibrary"
+            android:label="Sub Activity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
 
 
     </application>

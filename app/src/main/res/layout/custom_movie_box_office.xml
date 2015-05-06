@@ -22,7 +22,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/movieThumbnail"
-        style="@style/Base.TextAppearance.AppCompat.Body2"
         android:textSize="@dimen/size_text_primary"
         />
 
@@ -30,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movieReleaseDate"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/movieTitle"
         android:padding="@dimen/size_half_byte"
@@ -47,7 +45,7 @@
         android:isIndicator="true"
         android:max="5"
         android:numStars="0"
-        style="@android:style/Widget.Holo.RatingBar.Indicator"
+        style="@android:style/Widget.Holo.RatingBar.Small"
         />
 
 

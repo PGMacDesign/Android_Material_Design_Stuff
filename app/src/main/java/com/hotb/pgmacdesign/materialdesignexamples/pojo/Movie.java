@@ -1,7 +1,5 @@
 package com.hotb.pgmacdesign.materialdesignexamples.pojo;
 
-import java.util.Date;
-
 /**
  * Created by pmacdowell on 5/5/2015.
  */
@@ -9,7 +7,8 @@ public class Movie {
 
 	private long id;
 	private String title;
-	private Date releaseDateTheater;
+	//private Date releaseDateTheater;
+	private String releaseDateTheater;
 	private int audienceScore;
 	private String synopsis;
 	private String urlThumbnail;
@@ -18,7 +17,7 @@ public class Movie {
 	private String urlReviews;
 	private String urlSimilar;
 
-	public Movie(long id, String title, Date releaseDateTheater, int audienceScore,
+	public Movie(long id, String title, String releaseDateTheater, int audienceScore,
 	             String synopsis, String urlThumbnail, String urlSelf, String urlCast,
 	             String urlReviews, String urlSimilar) {
 		this.id = id;
@@ -55,7 +54,7 @@ public class Movie {
 		this.title = title;
 	}
 
-	public void setReleaseDateTheater(Date releaseDateTheater) {
+	public void setReleaseDateTheater(String releaseDateTheater) {
 		this.releaseDateTheater = releaseDateTheater;
 	}
 
@@ -95,7 +94,11 @@ public class Movie {
 		return title;
 	}
 
-	public Date getReleaseDateTheater() {
+	//public Date getReleaseDateTheater() {
+		//return releaseDateTheater;
+	//}
+
+	public String getReleaseDateTheater() {
 		return releaseDateTheater;
 	}
 

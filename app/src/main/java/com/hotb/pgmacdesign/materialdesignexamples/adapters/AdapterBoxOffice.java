@@ -9,7 +9,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.hotb.pgmacdesign.materialdesignexamples.R;
@@ -60,6 +66,7 @@ public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.View
 
 		holder.movieTitle.setText(currentMovie.getTitle());
 
+		//Check if the release date is valid / can be parsed
 		String tempDate = currentMovie.getReleaseDateTheater().toString();
 		if(tempDate != null){
 			holder.movieReleaseDate.setText(tempDate);
@@ -67,29 +74,22 @@ public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.View
 			holder.movieReleaseDate.setText("NA");
 		}
 
-		holder.movieAudienceScore.setRating(currentMovie.getAudienceScore() / 20.0f); // Div by 20 b/c score is out of 5 stars
+		//Check if the score is negative
+		int audienceScore = currentMovie.getAudienceScore();
+		if(audienceScore == -1){
+			holder.movieAudienceScore.setRating(0.0F);
+			holder.movieAudienceScore.setAlpha(0.5F);
+		} else {
+			holder.movieAudienceScore.setRating(currentMovie.getAudienceScore() / 20.0f); // Div by 20 b/c score is out of 5 stars
+			holder.movieAudienceScore.setAlpha(1.0F);
+		}
 
 		//Use volleysingleton image loader here for the thumbnail
 		String urlThumbnail = currentMovie.getUrlThumbnail();
 		//If the thumbnail is not null, load the image
-		if(urlThumbnail != null){
-			imageLoader.get(urlThumbnail, new ImageLoader.ImageListener() {
-				@Override
-				public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-					holder.movieThumbnail.setImageBitmap(response.getBitmap());
-				}
 
-				@Override
-				public void onErrorResponse(VolleyError error) {
-					//Do something
-					L.m("VOLLEY ERROR");
-				}
-			});
-		} else {
-			//Do something
-			L.m("urlThumbnail is null");
-		}
-		//holder.movieThumbnail
+		//Load the images
+		loadImages(urlThumbnail, holder);
 
 	}
 
@@ -99,7 +99,43 @@ public class AdapterBoxOffice extends RecyclerView.Adapter<AdapterBoxOffice.View
 	 * @param holder
 	 */
 	private void loadImages(String urlThumbnail, final ViewHolderBoxOffice holder){
-		HERE
+		if (!urlThumbnail.equalsIgnoreCase("NA")){
+			imageLoader.get(urlThumbnail, new ImageLoader.ImageListener() {
+				@Override
+				public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+					holder.movieThumbnail.setImageBitmap(response.getBitmap());
+				}
+
+				@Override
+				public void onErrorResponse(VolleyError error) {
+					L.m("VOLLEY ERROR");
+					handleVolleyError(error);
+				}
+			});
+		} else {
+			//Do something
+			L.m("urlThumbnail is null");
+		}
+	}
+
+	//Handles the volley error. This currently updates no views, it will update at some point
+	private void handleVolleyError(VolleyError error){
+		L.m("Error in response");
+		//Error has occurred, make the textView visible
+		//textVolleyError.setVisibility(View.VISIBLE);
+
+		//Break error down and check which one it is
+		if(error instanceof TimeoutError || error instanceof NoConnectionError){
+			//textVolleyError.setText(R.string.error_timeout);
+		} else if (error instanceof AuthFailureError){
+			//textVolleyError.setText(R.string.authentication_error);
+		} else if (error instanceof ServerError){
+			//textVolleyError.setText(R.string.server_error);
+		} else if (error instanceof NetworkError){
+			//textVolleyError.setText(R.string.network_error);
+		} else if (error instanceof ParseError){
+			//textVolleyError.setText(R.string.parse_error);
+		}
 	}
 
 	@Override

@@ -1,13 +1,24 @@
+<!-- Frame layout means only one is visible at a time -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.hotb.pgmacdesign.materialdesignexamples.fragments.FragmentBoxOffice">
 
+    <!-- Main Recycler view -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listMovieHits"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
+    <!-- Used for -->
+    <TextView
+        android:gravity="center"
+        android:id="@+id/textVolleyError"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>

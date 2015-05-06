@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--Since the app uses a logo image, do not use the title and subtitle -->
+<!--Since the app uses a logo image, do not use the title and subtitle
+May need to go back to v7-->
 <android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"

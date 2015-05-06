@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hotb.pgmacdesign.materialdesignexamples.R;
+import com.hotb.pgmacdesign.materialdesignexamples.misc.L;
+import com.hotb.pgmacdesign.materialdesignexamples.misc.SortListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentSearch#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentSearch extends Fragment {
+public class FragmentSearch extends Fragment implements SortListener{
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -64,4 +66,19 @@ public class FragmentSearch extends Fragment {
 	}
 
 
+	@Override
+	public void onSortByName() {
+		L.m("Sort " + " Name " + " Search " + "search");
+	}
+
+	@Override
+	public void onSortByDate() {
+		L.m("Sort " + " date " + " Search " + "search");
+	}
+
+	@Override
+	public void onSortByRating() {
+		L.m("Sort " + " rating " + " Search " + "search");
+
+	}
 }

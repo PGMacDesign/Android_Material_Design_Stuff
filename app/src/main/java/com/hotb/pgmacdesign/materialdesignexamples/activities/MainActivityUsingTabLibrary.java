@@ -21,7 +21,7 @@ import it.neokree.materialtabs.MaterialTabListener;
 /**
  * Created by pmacdowell on 5/4/2015.
  */
-public class ActivityUsingTabLibrary extends AppCompatActivity implements MaterialTabListener {
+public class MainActivityUsingTabLibrary extends AppCompatActivity implements MaterialTabListener {
 
 	private Toolbar toolbar;
 	private MaterialTabHost tabHost;

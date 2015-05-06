@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.hotb.pgmacdesign.materialdesignexamples"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -29,4 +29,7 @@ dependencies {
     compile 'com.skyfishjy.ripplebackground:library:1.0.1' //Ripple effect (lolipop) on pre API 21 devices
     compile 'it.neokree:MaterialTabs:0.11' //Tabs library
     compile 'com.mcxiaoke.volley:library:1.0.+' //Volley
+    compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2' //Really clean looking Floating Action Bar. Check link here for details: https://github.com/oguzbilgener/CircularFloatingActionMenu
+    compile 'com.yalantis:contextmenu:1.0.4' //Really clean looking button/ fold up icon; Looks professional. Check link here for details: https://github.com/Yalantis/Context-Menu.Android
+
 }
