@@ -1,8 +1,9 @@
 package com.hotb.pgmacdesign.materialdesignexamples.activities;
 
-import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -22,6 +23,7 @@ import com.hotb.pgmacdesign.materialdesignexamples.fragments.FragmentUpcoming;
 import com.hotb.pgmacdesign.materialdesignexamples.fragments.NavigationDrawerFragment;
 import com.hotb.pgmacdesign.materialdesignexamples.misc.L;
 import com.hotb.pgmacdesign.materialdesignexamples.misc.SortListener;
+import com.hotb.pgmacdesign.materialdesignexamples.services.MyService;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
@@ -29,6 +31,8 @@ import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
+import me.tatarka.support.job.JobInfo;
+import me.tatarka.support.os.PersistableBundle;
 
 /**
  * Created by pmacdowell on 5/6/2015.
@@ -53,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
 	private static final String TAG_SORT_RATINGS = "sortRatings";
 	//Run the JobSchedulerService every 2 minutes
 	private static final long POLL_FREQUENCY = 28800000;
-	private JobScheduler mJobScheduler;
 	private Toolbar mToolbar;
 	//a layout grouping the toolbar and the tabs together
 	private ViewGroup mContainerToolbar;
@@ -64,13 +67,16 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
 	private FloatingActionMenu mFABMenu;
 	private NavigationDrawerFragment mDrawerFragment;
 
+	//Creating the service here as it will be needed in multiple fragments
+	private me.tatarka.support.job.JobScheduler mJobScheduler;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setupFAB();
 		setupTabs();
-		//setupJob();
+		setupJob();
 		setupDrawer();
 		//animate the Toolbar when it comes into the picture
 		//AnimationUtils.animateToolbarDroppingDown(mContainerToolbar);
@@ -121,9 +127,9 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
 		}
 	}
 
-	/*
+
 	private void setupJob() {
-		mJobScheduler = JobScheduler.getInstance(this);
+		mJobScheduler = me.tatarka.support.job.JobScheduler.getInstance(this);
 		//set an initial delay with a Handler so that the data loading by the JobScheduler does not clash with the loading inside the Fragment
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -133,16 +139,28 @@ public class MainActivity extends AppCompatActivity implements MaterialTabListen
 			}
 		}, 30000);
 	}
-	*/
+
 
 	private void buildJob() {
 		//attach the job ID and the name of the Service that will work in the background
-		//JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, ServiceMoviesBoxOffice.class));
+		JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyService.class));
+
+		//To send data between classes
+		PersistableBundle persistableBundle = new PersistableBundle();
+		persistableBundle.putString("useless_key", "useless_value");
+
 		//set periodic polling that needs net connection and works across device reboots
-		//builder.setPeriodic(POLL_FREQUENCY)
-				//.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
-				//.setPersisted(true);
-		//mJobScheduler.schedule(builder.build());
+		builder.setPeriodic(POLL_FREQUENCY)
+				.setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED) //As in, they are not being billed for the data here
+				//.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY) //As in, they can be on any network
+				//.setRequiresCharging(true)//As in, they must be charging for this to run
+				//.setRequiresDeviceIdle(true) //As in, device must be idle for this service to run
+				.setExtras(persistableBundle) //Add bundle of extras here to pass to a new activity if needed. ONLY primitive types allowed
+				//.setMinimumLatency(1000) //DO NOT RUN THIS in conjunction with setPeriodic!
+				//.setOverrideDeadline( long maxExecutionDelayMillis)//Delays this in max before starting. DO NOT RUN THIS in conjunction with setPeriodic!
+				.setPersisted(true); //Will run affter device reboots if set to true
+		//Don't forget to add it to the job scheduler object
+		mJobScheduler.schedule(builder.build());
 	}
 
 	private void setupFAB() {
