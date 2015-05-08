@@ -1,25 +1,46 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.pgmacdesign.materialdesignexamples.MainActivity">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="materialtest.vivz.slidenerd.activities.ActivityMain">
     <item
-        android:id="@+id/Navigate"
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_touch_intercept_activity"
+        android:icon="@drawable/ic_next"
+        android:orderInCategory="200"
         android:title="@string/next"
-        android:orderInCategory="99"
-        android:icon="@drawable/ic_launcher"
-        app:showAsAction="always"
-        />
-
-
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
-
-    <item android:id="@+id/open_activity_using_tab_library"
-          android:title="@string/activity_using_tab_library"
-          android:orderInCategory="98"
-          app:showAsAction="never"/>
-
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_tabs_using_library"
+        android:orderInCategory="300"
+        android:title="@string/action_tabs_using_library"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_vector_test_activity"
+        android:orderInCategory="300"
+        android:title="@string/action_vector_test_activity"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_dynamic_tabs_activity"
+        android:orderInCategory="400"
+        android:title="@string/action_dynamic_tabs_activity"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_recycler_item_animations"
+        android:orderInCategory="500"
+        android:title="@string/action_recycler_item_animations"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_activity_calling"
+        android:orderInCategory="600"
+        android:title="@string/action_activity_calling"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_shared_transitions"
+        android:orderInCategory="600"
+        android:title="@string/action_shared_transitions"
+        app:showAsAction="never" />
 </menu>

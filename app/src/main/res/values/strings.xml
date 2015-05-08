@@ -1,29 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Material Design Examples</string>
-    <string name="title_activity_main">MainActivity</string>
 
+    <string name="app_name">MaterialDesignExamplesV2</string>
+    <string name="title_activity_main">Main Activity</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="next">Next</string>
-
-    <string name="rotten_tomatoes_api_key">v66kns6qwttrmvea9qxsv83n</string>
-
-    <!-- Nav Drawer -->
+    <string name="title_activity_sub">SubActivity</string>
+    <string name="next">TouchProcessingActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="search_movies">Search Movies</string>
 
-    <string-array name="tabs_array">
-        <item>Tab 1</item>
-        <item>Tab 2</item>
-        <item>Tab 3</item>
+    <string-array name="tabs">
+        <item>TAB 1</item>
+        <item>TAB 2</item>
+        <item>TAB 3</item>
+        <item>TAB 4</item>
+        <item>TAB 5</item>
+        <item>TAB 6</item>
     </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="activity_using_tab_library">Open Activity Using Tab Library</string>
-    <string name="error_timeout">The connection could not be established. Please try again later</string>
-    <string name="authentication_error">There was an authentication error with your request. Please try again later</string>
-    <string name="server_error">There was an error with the server. Please try again later</string>
-    <string name="network_error">There was an error with the network. Please try again later</string>
-    <string name="parse_error">There was an error with the Parsing. Please try again later</string>
+    <string name="title_activity_activity_using_tab_library">SlidingTabLayoutActivity</string>
+    <string name="action_tabs_using_library">SlidingTabLayoutExample</string>
+    <string name="title_activity_vector_test">VectorTestActivity</string>
+    <string name="action_vector_test_activity">VectorTestActivity</string>
+    <string name="error_timeout">Oops! Your Connection Timed Out</string>
+    <string name="error_auth_failure">Oops! RottenTomatoes Says It Doesn\'t Recognize You</string>
+    <string name="error_network">Oops! RottenTomatoes Server Just Messed Up</string>
+    <string name="error_parser">Oops! Data Received Was An Unreadable Mess</string>
+    <string name="title_activity_dynamic_tabs">Dynamic Tabs</string>
+    <string name="add_tab">Add Tab</string>
+    <string name="action_dynamic_tabs_activity">Dynamic Tabs</string>
+    <string name="title_activity_recycler_item_animations">RecyclerItemAnimations
+    </string>
+    <string name="action_recycler_item_animations">RecyclerItemAnimator</string>
+    <string name="action_add">+</string>
+    <string name="action_remove">-</string>
+    <string name="add_item">Add Item</string>
+    <string name="title_activity_activity_calling">Content A</string>
+    <string name="title_activity_activity_called">Content B</string>
+    <string name="action_activity_calling">ContentTransitions</string>
+    <string name="title_activity_activity_shared">Shared A</string>
+    <string name="title_activity_activity_shared_b">Shared B</string>
+    <string name="action_shared_transitions">SharedElementsTransition</string>
+
 </resources>

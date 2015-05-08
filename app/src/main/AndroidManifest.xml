@@ -1,67 +1,90 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hotb.pgmacdesign.materialdesignexamples">
+<manifest package="com.hotb.pgmacdesign.materialdesignexamples"
+          xmlns:android="http://schemas.android.com/apk/res/android"
 
-    <!--SDK Requirements -->
-    <uses-sdk
-        android:minSdkVersion="15"
-        />
+        >
 
     <!-- Permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Always required on api < 21, needed to keep a wake lock while your job is running -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- Required on api < 21 if you are using setRequiredNetworkType(int) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- Required on all api levels if you are using setPersisted(true) -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
+    <!-- Application -->
     <application
         android:allowBackup="true"
+        android:name=".materialtest.MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".volleystuff.MyApplication" >
+        android:theme="@style/AppTheme">
 
-
+        <!-- Activities -->
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".activities.ActivityMain"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".activities.SubActivity"
-            android:label="Sub Activity" >
+            android:name=".activities.ActivityTouchEvent"
+            android:label="@string/title_activity_sub" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+                android:value=".activities.ActivityMain" />
         </activity>
 
         <activity
-            android:name=".activities.MainActivityUsingTabLibrary"
-            android:label="Sub Activity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+            android:name=".activities.ActivitySlidingTabLayout"
+            android:label="@string/title_activity_activity_using_tab_library" >
         </activity>
 
         <activity
-            android:name=".activities.MainActivityNOTUsingTabLibrary"
-            android:label="Sub Activity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity" />
+            android:name=".activities.ActivityVectorDrawable"
+            android:label="@string/title_activity_vector_test" >
         </activity>
 
+        <activity
+            android:name=".activities.ActivityDynamicTabs"
+            android:label="@string/title_activity_dynamic_tabs" >
+        </activity>
+
+        <activity
+            android:name=".activities.ActivityRecylerAnimators"
+            android:label="@string/title_activity_recycler_item_animations" >
+        </activity>
+
+        <activity
+            android:name=".activities.ActivityA"
+            android:label="@string/title_activity_activity_calling" >
+        </activity>
+
+        <activity
+            android:name=".activities.ActivityB"
+            android:label="@string/title_activity_activity_called" >
+
+        </activity>
+        <activity
+            android:name=".activities.ActivitySharedA"
+            android:label="@string/title_activity_activity_shared"></activity>
+
+        <activity
+            android:name=".activities.ActivitySharedB"
+            android:label="@string/title_activity_activity_shared_b"></activity>
 
         <!-- Services -->
         <service
-            android:name=".services.MyService"
+            android:name=".services.ServiceMoviesBoxOffice"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
-            />
+
+
+
     </application>
-
 </manifest>

@@ -1,0 +1,31 @@
+<materialtest.vivz.slidenerd.views.LayoutCustom xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="materialtest.vivz.slidenerd.activities.ActivityTouchEvent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar" />
+    </RelativeLayout>
+
+
+
+
+    <materialtest.vivz.slidenerd.views.ViewCustom
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:text="My View"
+        android:textColor="@android:color/black" />
+
+
+</materialtest.vivz.slidenerd.views.LayoutCustom>

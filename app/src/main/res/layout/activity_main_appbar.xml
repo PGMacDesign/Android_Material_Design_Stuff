@@ -1,52 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <!-- This one is perfect for a navigation drawer. The other activity main is continuing with the
-    tutorial and going with the new info -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-
-    >
-    <!-- No need for padding right now, but, this is the exact height of the status / notification bar
-    android:paddingTop="@dimen/margin_top"
-    -->
-
-
-    <!-- This includes the app bar layout -->
+    android:orientation="vertical">
     <include
-        android:id="@+id/app_bar1"
-        layout="@layout/app_bar01_tabs"
-        />
-
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
     <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:context="com.pgmacdesign.materialdesignexamples.MainActivity">
-
-
-        </FrameLayout>
-
-        <!--dp measurements match developer recommendations from website (280dp on width) -->
         <fragment
-            android:id="@+id/fragment_nav_drawer55"
+            android:id="@+id/fragment_navigation_drawer"
+            android:name="com.hotb.pgmacdesign.materialdesignexamples.fragments.FragmentDrawer"
             android:layout_width="@dimen/nav_drawer_width"
             android:layout_height="match_parent"
-            app:layout="@layout/fragment_navigation_drawer"
             android:layout_gravity="start"
-            android:name="com.hotb.pgmacdesign.materialdesignexamples.fragments.NavigationDrawerFragment"
-            tools:layout="@layout/fragment_navigation_drawer"
-            />
-
+            app:layout="@layout/fragment_navigation_drawer"
+            tools:layout="@layout/fragment_navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>
