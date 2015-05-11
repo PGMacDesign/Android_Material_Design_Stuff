@@ -41,8 +41,6 @@ import me.tatarka.support.job.JobScheduler;
 
 public class ActivityMain extends ActionBarActivity implements MaterialTabListener, View.OnClickListener {
 
-    //TESTING POSITION -1!!! THIS MAY ERROR OUT!!!
-    public static final int HEADER_ICON = -1;
     //int representing our 0th tab corresponding to the Fragment where search results are dispalyed
     public static final int TAB_SEARCH_RESULTS = 0;
     //int corresponding to our 1st tab corresponding to the Fragment where box office hits are dispalyed
@@ -82,6 +80,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         setupDrawer();
         //animate the Toolbar when it comes into the picture
         AnimationUtils.animateToolbarDroppingDown(mContainerToolbar);
+        //Remove this if it gets irritating
 
     }
 
@@ -105,6 +104,7 @@ public class ActivityMain extends ActionBarActivity implements MaterialTabListen
         if(index == 0){
             Intent intent = new Intent(this, ActivityA.class);
             startActivity(intent);
+            return;
         } else {
             /*
             NOTE! I am doing this because it is currently using tabs and they follow a zero based
