@@ -22,6 +22,7 @@ public class AdapterDrawer extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     List<Information> data= Collections.emptyList();
     private static final int TYPE_HEADER=0;
     private static final int TYPE_ITEM=1;
+    private static final int TYPE_TITLE = 2;
     private LayoutInflater inflater;
     private Context context;
     public AdapterDrawer(Context context, List<Information> data){
@@ -40,6 +41,10 @@ public class AdapterDrawer extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             View view=inflater.inflate(R.layout.drawer_header, parent,false);
             HeaderHolder holder=new HeaderHolder(view);
             return holder;
+        } else if (viewType == TYPE_TITLE){
+            View view=inflater.inflate(R.layout.drawer_title_header, parent,false);
+            HeaderHolder holder=new HeaderHolder(view);
+            return holder;
         }
         else{
             View view=inflater.inflate(R.layout.item_drawer, parent,false);
@@ -49,10 +54,17 @@ public class AdapterDrawer extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
 
+    /**
+     * Currently have this setup to return the TYPE of item and inflate it.
+     * @param position
+     * @return
+     */
     @Override
     public int getItemViewType(int position) {
         if(position==0){
             return TYPE_HEADER;
+        } else if(position == 2){
+            return TYPE_TITLE;
         }
         else {
             return TYPE_ITEM;
